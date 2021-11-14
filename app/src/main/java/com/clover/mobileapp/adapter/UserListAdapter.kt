@@ -30,6 +30,7 @@ open class UserListAdapter(private var userList:ArrayList<Result>, private var c
 
         holder.nameTV.text = itemUser.name
         holder.statusTV.text = itemUser.status
+        holder.speciesTV.text = itemUser.species
         holder.layout.setOnClickListener {
             userClickListener.onUserClick(itemUser)
         }
@@ -43,6 +44,7 @@ open class UserListAdapter(private var userList:ArrayList<Result>, private var c
         val nameTV: TextView = itemView.findViewById(R.id.nameTV)
         val statusTV: TextView = itemView.findViewById(R.id.statusTV)
         val layout:ConstraintLayout = itemView.findViewById(R.id.layout)
+        val speciesTV:TextView = itemView.findViewById(R.id.speciesTV)
     }
 
     interface OnUserClickListener{
