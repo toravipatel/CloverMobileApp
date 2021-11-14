@@ -1,4 +1,4 @@
-package com.clover.mobileapp
+package com.clover.mobileapp.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.clover.mobileapp.R
 import com.clover.mobileapp.network.NetworkResult
 import com.clover.mobileapp.util.LoadingDialog
 import com.clover.mobileapp.util.Util
@@ -16,16 +17,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [UserDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Fragment to User detail with location
  */
 @AndroidEntryPoint
 class UserDetailFragment : Fragment() {
 
     private val userDetailViewModel: UserDetailViewModel by viewModels()
-
-
     val args: UserDetailFragmentArgs by navArgs()
     private var progressDialog: LoadingDialog? = null
 
@@ -40,10 +37,12 @@ class UserDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initComponent(view)
+    }
 
-        val id = args.userDetail.id
+    private fun initComponent(view: View) {
         progressDialog = LoadingDialog(requireActivity())
-        userDetailViewModel.fetchLocationDetails(id)
+        userDetailViewModel.fetchLocationDetails(args.userDetail.id)
 
         val locationNameTV: TextView = view.findViewById(R.id.locatioNameTV)
         val locationTypeTV: TextView = view.findViewById(R.id.locationTypeTV)
@@ -60,7 +59,7 @@ class UserDetailFragment : Fragment() {
 
             when (it) {
                 is NetworkResult.Success -> {
-                    progressDialog?.isDismiss()
+                    progressDialog?.hideProgressdialog()
 
                     it.data?.let { locationDetail ->
                         locationNameTV.text = locationDetail.name
@@ -70,7 +69,7 @@ class UserDetailFragment : Fragment() {
                     }
                 }
                 is NetworkResult.Loading -> {
-                    progressDialog?.startLoading()
+                    progressDialog?.showProgressDialog()
                 }
                 is NetworkResult.Error -> {
                 }

@@ -1,4 +1,4 @@
-package com.clover.mobileapp.model
+package com.clover.mobileapp.model.userlist
 
 
 import android.os.Parcelable

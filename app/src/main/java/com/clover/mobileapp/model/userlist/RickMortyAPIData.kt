@@ -1,4 +1,4 @@
-package com.clover.mobileapp.model
+package com.clover.mobileapp.model.userlist
 
 
 import com.google.gson.annotations.SerializedName

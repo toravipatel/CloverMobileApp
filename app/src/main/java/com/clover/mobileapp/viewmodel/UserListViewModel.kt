@@ -2,31 +2,30 @@ package com.clover.mobileapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.clover.mobileapp.LoadingState
-import com.clover.mobileapp.model.RickMortyAPIData
+import com.clover.mobileapp.model.userlist.RickMortyAPIData
+import com.clover.mobileapp.network.NetworkResult
+import com.clover.mobileapp.network.NetworkResult.Loading
 import com.clover.mobileapp.repository.UserListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class UserDetailViewModel @Inject constructor(private val userListRepository: UserListRepository):
+class UserListViewModel @Inject constructor(private val userListRepository: UserListRepository):
     ViewModel() {
 
-    //keep the loading status of the application
-    var loadingState = MutableLiveData<LoadingState>()
-    var userList = MutableLiveData<RickMortyAPIData>()
-
+    //live data to update api calling status for UI layer
+    var userList: MutableLiveData<NetworkResult<RickMortyAPIData>> = MutableLiveData()
 
     init {
-        loadingState = userListRepository .getLoadingState()
         fetchUserList()
     }
 
+    /**
+     * Function to call userlist api
+     * */
     private fun fetchUserList() {
-        loadingState.value = LoadingState.LOADING
+        userList.value = Loading()
         userList = userListRepository.getUserList()
 
     }
-
-
 }
