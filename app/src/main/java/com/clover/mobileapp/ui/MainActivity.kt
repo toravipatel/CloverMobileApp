@@ -14,11 +14,17 @@ class MainActivity : AppCompatActivity() {
         setUpToolBar()
     }
 
+    /*
+    * Function to set up back button in toolbar
+    * */
     private fun setUpToolBar() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    /*
+    * Function to handle back button with nav graph
+    * */
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
