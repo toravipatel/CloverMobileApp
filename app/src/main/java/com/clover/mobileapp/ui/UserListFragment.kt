@@ -27,7 +27,7 @@ class UserListFragment : Fragment() {
     private lateinit var userListAdapter: UserListAdapter
     private lateinit var userList:ArrayList<Result>
     private var progressDialog:LoadingDialog? = null
-
+    private var userListRV:RecyclerView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

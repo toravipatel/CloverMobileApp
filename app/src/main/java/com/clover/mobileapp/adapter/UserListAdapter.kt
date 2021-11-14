@@ -10,6 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.clover.mobileapp.R
 import com.clover.mobileapp.model.userlist.Result
 
+/**
+*  Adapter class to show user list
+ *  @param userList User List
+ *  @param context Context
+ *  @param userClickListener listener to handle item click of list
+* */
+
 open class UserListAdapter(private var userList:ArrayList<Result>, private var context: Context, private val userClickListener: OnUserClickListener) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,20 +28,16 @@ open class UserListAdapter(private var userList:ArrayList<Result>, private var c
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemUser = userList[position]
 
-
         holder.nameTV.text = itemUser.name
         holder.statusTV.text = itemUser.status
         holder.layout.setOnClickListener {
             userClickListener.onUserClick(itemUser)
         }
-
-
     }
 
     override fun getItemCount(): Int {
         return userList.size
     }
-
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val nameTV: TextView = itemView.findViewById(R.id.nameTV)
